@@ -68,7 +68,77 @@ document.addEventListener('DOMContentLoaded', function() {
             mainContent.style.marginLeft = '';
         }
     });
+
+    // Admin dropdown menu
+    window.toggleAdminMenu = function() {
+        const adminMenu = document.getElementById('admin-menu');
+        if (adminMenu) {
+            adminMenu.classList.toggle('hidden');
+        }
+    }
+
+    // Close admin menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const adminMenu = document.getElementById('admin-menu');
+        const adminButton = event.target.closest('[onclick="toggleAdminMenu()"]');
+        
+        if (adminMenu && !adminButton && !adminMenu.contains(event.target)) {
+            adminMenu.classList.add('hidden');
+        }
+    });
+
+    // Members page functionality
+    window.showAddMember = function() {
+        document.getElementById('members-list-section').classList.add('hidden');
+        document.getElementById('add-member-section').classList.remove('hidden');
+    }
+
+    window.showMembersList = function() {
+        document.getElementById('add-member-section').classList.add('hidden');
+        document.getElementById('members-list-section').classList.remove('hidden');
+    }
+
+    // Check URL parameters for members page
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('action') === 'add') {
+        showAddMember();
+    }
+
+    // Events page functionality
+    window.openCreateEventDialog = function() {
+        const eventForm = document.getElementById('event-form');
+        if (eventForm) {
+            eventForm.classList.remove('hidden');
+        }
+    }
+
+    // Check URL parameters for events page
+    if (urlParams.get('action') === 'create') {
+        openCreateEventDialog();
+    }
+
+    // Event form close functionality
+    const closeEventFormBtn = document.getElementById('close-form-btn');
+    const cancelEventFormBtn = document.getElementById('cancel-form-btn');
     
+    if (closeEventFormBtn) {
+        closeEventFormBtn.addEventListener('click', function() {
+            document.getElementById('event-form').classList.add('hidden');
+        });
+    }
+    
+    if (cancelEventFormBtn) {
+        cancelEventFormBtn.addEventListener('click', function() {
+            document.getElementById('event-form').classList.add('hidden');
+        });
+    }
+
+    // Create event button
+    const createEventBtn = document.getElementById('create-event-btn');
+    if (createEventBtn) {
+        createEventBtn.addEventListener('click', openCreateEventDialog);
+    }
+
     // Search functionality for members page
     const searchInput = document.getElementById('search-members');
     if (searchInput) {
@@ -77,10 +147,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const rows = document.querySelectorAll('tbody tr');
             
             rows.forEach(row => {
-                const memberName = row.querySelector('td:nth-child(2) p').textContent.toLowerCase();
-                const memberEmail = row.querySelector('td:nth-child(3) p').textContent.toLowerCase();
+                const memberName = row.querySelector('td:nth-child(2) p')?.textContent.toLowerCase();
+                const memberEmail = row.querySelector('td:nth-child(3) p')?.textContent.toLowerCase();
                 
-                if (memberName.includes(searchTerm) || memberEmail.includes(searchTerm)) {
+                if (memberName?.includes(searchTerm) || memberEmail?.includes(searchTerm)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
@@ -105,9 +175,13 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const action = this.getAttribute('title');
             const row = this.closest('tr');
-            const memberName = row.querySelector('td:nth-child(2) p').textContent;
+            const memberName = row.querySelector('td:nth-child(2) p')?.textContent;
             
-            showNotification(`${action} ${memberName} - functionality would be implemented here`);
+            if (memberName) {
+                showNotification(`${action} ${memberName} - functionality would be implemented here`);
+            } else {
+                showNotification(`${action} - functionality would be implemented here`);
+            }
         });
     });
     
@@ -127,8 +201,10 @@ document.addEventListener('DOMContentLoaded', function() {
     rowCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             const checkedCount = document.querySelectorAll('tbody input[type="checkbox"]:checked').length;
-            selectAllCheckbox.checked = checkedCount === rowCheckboxes.length;
-            selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < rowCheckboxes.length;
+            if (selectAllCheckbox) {
+                selectAllCheckbox.checked = checkedCount === rowCheckboxes.length;
+                selectAllCheckbox.indeterminate = checkedCount > 0 && checkedCount < rowCheckboxes.length;
+            }
         });
     });
     
@@ -171,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            showNotification('Form submission functionality would be implemented here', 'info');
+            showNotification('Form submission functionality would be implemented here', 'success');
         });
     });
     
@@ -226,5 +302,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.removeAttribute('data-title');
             }
         });
+    });
+
+    // User dropdown functionality for other pages  
+    const userMenuBtn = document.getElementById('user-menu-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+    
+    if (userMenuBtn && userDropdown) {
+        userMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        if (userDropdown && !userDropdown.contains(event.target) && !userMenuBtn?.contains(event.target)) {
+            userDropdown.classList.add('hidden');
+        }
     });
 });
