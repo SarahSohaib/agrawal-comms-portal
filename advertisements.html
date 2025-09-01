@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCA Admin Portal - Advertisement Management</title>
+    <meta name="description" content="Manage advertisements and promotional content for APCA community" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="bg-background text-foreground">
+    <div class="min-h-screen bg-background flex w-full">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="fixed left-0 top-0 h-full w-64 bg-sidebar-background border-r border-sidebar-border transform transition-transform duration-300 z-50">
+            <div class="p-6">
+                <div class="flex items-center space-x-3 mb-8">
+                    <div class="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
+                        <span class="text-primary-foreground font-bold text-lg">A</span>
+                    </div>
+                    <div class="sidebar-text">
+                        <h2 class="font-bold text-lg text-sidebar-foreground">APCA</h2>
+                        <p class="text-sm text-sidebar-foreground/70">Admin Portal</p>
+                    </div>
+                </div>
+
+                <ul class="space-y-2">
+                    <li>
+                        <a href="index.html" class="flex items-center px-4 py-3 text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors">
+                            <i class="fas fa-home w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="members.html" class="flex items-center px-4 py-3 text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors">
+                            <i class="fas fa-users w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Members</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="events.html" class="flex items-center px-4 py-3 text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors">
+                            <i class="fas fa-calendar w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Events</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="executives.html" class="flex items-center px-4 py-3 text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors">
+                            <i class="fas fa-user-tie w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Executives</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="jobs.html" class="flex items-center px-4 py-3 text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors">
+                            <i class="fas fa-briefcase w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Jobs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="matrimony.html" class="flex items-center px-4 py-3 text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors">
+                            <i class="fas fa-heart w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Matrimony</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="advertisements.html" class="flex items-center px-4 py-3 text-primary bg-primary/10 rounded-lg font-medium">
+                            <i class="fas fa-ad w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Advertisements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="newsletter.html" class="flex items-center px-4 py-3 text-sidebar-foreground hover:bg-sidebar-accent rounded-lg transition-colors">
+                            <i class="fas fa-newspaper w-5 h-5 mr-3"></i>
+                            <span class="sidebar-text">Newsletter</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div id="main-content" class="flex-1 flex flex-col ml-64 transition-all duration-300">
+            <!-- Header -->
+            <header class="bg-card border-b border-border px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <button id="sidebar-toggle" class="text-foreground hover:bg-muted p-2 rounded-lg transition-colors lg:hidden">
+                        <i class="fas fa-bars w-5 h-5"></i>
+                    </button>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="Search advertisements..." class="pl-10 pr-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent outline-none">
+                            <button id="search-btn" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                                <i class="fas fa-search w-4 h-4"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex items-center space-x-2">
+                            <button id="notification-btn" class="p-2 text-foreground hover:bg-muted rounded-lg transition-colors relative">
+                                <i class="fas fa-bell w-5 h-5"></i>
+                                <span class="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full"></span>
+                            </button>
+                            
+                            <div class="relative">
+                                <button id="user-menu-btn" class="flex items-center space-x-3 ml-4 p-2 rounded-lg hover:bg-muted transition-colors">
+                                    <div class="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center">
+                                        <span class="text-primary-foreground text-sm font-medium">AD</span>
+                                    </div>
+                                    <div class="hidden sm:block text-left">
+                                        <p class="text-sm font-medium text-foreground">Admin User</p>
+                                        <p class="text-xs text-muted-foreground">Administrator</p>
+                                    </div>
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </button>
+                                
+                                <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-card border border-border rounded-lg shadow-lg z-50">
+                                    <div class="py-2">
+                                        <a href="profile.html" class="block px-4 py-2 text-sm text-foreground hover:bg-muted">
+                                            <i class="fas fa-user w-4 h-4 mr-2"></i>
+                                            Profile
+                                        </a>
+                                        <a href="settings.html" class="block px-4 py-2 text-sm text-foreground hover:bg-muted">
+                                            <i class="fas fa-cog w-4 h-4 mr-2"></i>
+                                            Settings
+                                        </a>
+                                        <hr class="my-1 border-border">
+                                        <a href="#" class="block px-4 py-2 text-sm text-foreground hover:bg-muted">
+                                            <i class="fas fa-sign-out-alt w-4 h-4 mr-2"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Advertisement Content -->
+            <main class="flex-1 p-6 overflow-auto">
+                <div class="max-w-7xl mx-auto">
+                    <div class="space-y-6 animate-fade-in">
+                        <!-- Header Section -->
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h1 class="text-3xl font-bold text-foreground">Advertisement Management</h1>
+                                <p class="text-muted-foreground">Manage advertisements and promotional content</p>
+                            </div>
+                            <button id="create-ad-btn" class="btn-primary px-6 py-3 rounded-lg">
+                                <i class="fas fa-plus mr-2"></i>
+                                Create Advertisement
+                            </button>
+                        </div>
+
+                        <!-- Stats Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="card-elevated rounded-xl p-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-muted-foreground">Total Ads</p>
+                                        <p class="text-2xl font-bold text-foreground">24</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-ad text-blue-600"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-elevated rounded-xl p-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-muted-foreground">Active Ads</p>
+                                        <p class="text-2xl font-bold text-foreground">18</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-check-circle text-green-600"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-elevated rounded-xl p-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-muted-foreground">Total Views</p>
+                                        <p class="text-2xl font-bold text-foreground">12.5K</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-eye text-purple-600"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-elevated rounded-xl p-6">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-sm font-medium text-muted-foreground">This Month</p>
+                                        <p class="text-2xl font-bold text-foreground">3.2K</p>
+                                    </div>
+                                    <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-calendar text-orange-600"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advertisement Creation Form -->
+                        <div id="ad-form" class="hidden card-elevated rounded-xl p-6">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-xl font-semibold text-foreground">Create Advertisement</h2>
+                                <button id="close-ad-form-btn" class="text-muted-foreground hover:text-foreground">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            
+                            <form class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">Advertisement Title</label>
+                                        <input type="text" class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" placeholder="Enter ad title" required>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">Category</label>
+                                        <select class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent">
+                                            <option>Business</option>
+                                            <option>Services</option>
+                                            <option>Community</option>
+                                            <option>Events</option>
+                                            <option>Education</option>
+                                            <option>Health</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">Start Date</label>
+                                        <input type="date" class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" required>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">End Date</label>
+                                        <input type="date" class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" required>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-foreground mb-2">Advertisement Description</label>
+                                    <textarea class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" rows="4" placeholder="Enter detailed description" required></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-foreground mb-2">Advertisement Image</label>
+                                    <div class="border-2 border-dashed border-border rounded-lg p-6 text-center">
+                                        <input type="file" accept="image/*" class="hidden" id="ad-image-upload">
+                                        <label for="ad-image-upload" class="cursor-pointer">
+                                            <i class="fas fa-cloud-upload-alt text-4xl text-muted-foreground mb-4"></i>
+                                            <p class="text-muted-foreground">Click to upload image or drag and drop</p>
+                                            <p class="text-sm text-muted-foreground mt-2">PNG, JPG, GIF up to 10MB</p>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">Contact Person</label>
+                                        <input type="text" class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" placeholder="Enter contact name">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">Contact Number</label>
+                                        <input type="tel" class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" placeholder="Enter phone number">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">Email</label>
+                                        <input type="email" class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" placeholder="Enter email address">
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-foreground mb-2">Website URL</label>
+                                        <input type="url" class="w-full px-4 py-2 bg-input border border-border rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent" placeholder="https://example.com">
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end space-x-4">
+                                    <button type="button" id="cancel-ad-form-btn" class="px-6 py-2 border border-border rounded-lg hover:bg-muted transition-colors">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="btn-primary px-6 py-2 rounded-lg">
+                                        Create Advertisement
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Advertisements Grid -->
+                        <div class="card-elevated rounded-xl p-6">
+                            <h2 class="text-xl font-semibold mb-4 text-foreground">Current Advertisements</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <!-- Advertisement Card 1 -->
+                                <div class="bg-card border border-border rounded-lg overflow-hidden hover:shadow-medium transition-shadow">
+                                    <div class="h-48 bg-gradient-primary"></div>
+                                    <div class="p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-semibold text-foreground">Agrawal Enterprises</h3>
+                                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
+                                        </div>
+                                        <p class="text-sm text-muted-foreground mb-3">Business solutions and consultancy services for the community.</p>
+                                        <div class="flex justify-between items-center text-xs text-muted-foreground mb-3">
+                                            <span>Views: 1,234</span>
+                                            <span>Expires: Mar 15, 2024</span>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 px-3 py-1 bg-primary/10 text-primary text-sm rounded hover:bg-primary/20 transition-colors">
+                                                <i class="fas fa-eye mr-1"></i>
+                                                View
+                                            </button>
+                                            <button class="flex-1 px-3 py-1 bg-secondary/10 text-secondary text-sm rounded hover:bg-secondary/20 transition-colors">
+                                                <i class="fas fa-edit mr-1"></i>
+                                                Edit
+                                            </button>
+                                            <button class="px-3 py-1 bg-destructive/10 text-destructive text-sm rounded hover:bg-destructive/20 transition-colors">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Advertisement Card 2 -->
+                                <div class="bg-card border border-border rounded-lg overflow-hidden hover:shadow-medium transition-shadow">
+                                    <div class="h-48 bg-gradient-secondary"></div>
+                                    <div class="p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-semibold text-foreground">Educational Institute</h3>
+                                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
+                                        </div>
+                                        <p class="text-sm text-muted-foreground mb-3">Quality education and career development programs.</p>
+                                        <div class="flex justify-between items-center text-xs text-muted-foreground mb-3">
+                                            <span>Views: 856</span>
+                                            <span>Expires: Apr 20, 2024</span>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 px-3 py-1 bg-primary/10 text-primary text-sm rounded hover:bg-primary/20 transition-colors">
+                                                <i class="fas fa-eye mr-1"></i>
+                                                View
+                                            </button>
+                                            <button class="flex-1 px-3 py-1 bg-secondary/10 text-secondary text-sm rounded hover:bg-secondary/20 transition-colors">
+                                                <i class="fas fa-edit mr-1"></i>
+                                                Edit
+                                            </button>
+                                            <button class="px-3 py-1 bg-destructive/10 text-destructive text-sm rounded hover:bg-destructive/20 transition-colors">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Advertisement Card 3 -->
+                                <div class="bg-card border border-border rounded-lg overflow-hidden hover:shadow-medium transition-shadow">
+                                    <div class="h-48 bg-gradient-accent"></div>
+                                    <div class="p-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-semibold text-foreground">Community Health</h3>
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Expiring Soon</span>
+                                        </div>
+                                        <p class="text-sm text-muted-foreground mb-3">Healthcare services and wellness programs for all members.</p>
+                                        <div class="flex justify-between items-center text-xs text-muted-foreground mb-3">
+                                            <span>Views: 2,145</span>
+                                            <span>Expires: Mar 05, 2024</span>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button class="flex-1 px-3 py-1 bg-primary/10 text-primary text-sm rounded hover:bg-primary/20 transition-colors">
+                                                <i class="fas fa-eye mr-1"></i>
+                                                View
+                                            </button>
+                                            <button class="flex-1 px-3 py-1 bg-secondary/10 text-secondary text-sm rounded hover:bg-secondary/20 transition-colors">
+                                                <i class="fas fa-edit mr-1"></i>
+                                                Edit
+                                            </button>
+                                            <button class="px-3 py-1 bg-destructive/10 text-destructive text-sm rounded hover:bg-destructive/20 transition-colors">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div id="notification-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+        <div class="bg-card rounded-lg p-6 w-96 max-w-sm mx-4">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-foreground">Notifications</h3>
+                <button id="close-notification-popup" class="text-muted-foreground hover:text-foreground">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-3">
+                <div class="p-3 bg-muted/50 rounded-lg">
+                    <p class="text-sm font-medium text-foreground">New advertisement approved</p>
+                    <p class="text-xs text-muted-foreground">2 hours ago</p>
+                </div>
+                <div class="p-3 bg-muted/50 rounded-lg">
+                    <p class="text-sm font-medium text-foreground">Advertisement expiring soon</p>
+                    <p class="text-xs text-muted-foreground">1 day ago</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

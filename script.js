@@ -69,23 +69,48 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Admin dropdown menu
-    window.toggleAdminMenu = function() {
-        const adminMenu = document.getElementById('admin-menu');
-        if (adminMenu) {
-            adminMenu.classList.toggle('hidden');
+    // Universal search functionality
+    const searchBtn = document.getElementById('search-btn');
+    const searchInput = document.getElementById('search-input');
+    
+    if (searchBtn) {
+        searchBtn.addEventListener('click', function() {
+            const query = searchInput?.value || '';
+            showNotification(`Searching for: ${query || 'all items'}`, 'info');
+        });
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchBtn?.click();
+            }
+        });
+    }
+
+    // Universal notification button
+    const notificationBtn = document.getElementById('notification-btn');
+    if (notificationBtn) {
+        notificationBtn.addEventListener('click', function() {
+            showNotificationPopup();
+        });
+    }
+
+    // Show notification popup
+    function showNotificationPopup() {
+        const popup = document.getElementById('notification-popup');
+        if (popup) {
+            popup.classList.remove('hidden');
         }
     }
 
-    // Close admin menu when clicking outside
-    document.addEventListener('click', function(event) {
-        const adminMenu = document.getElementById('admin-menu');
-        const adminButton = event.target.closest('[onclick="toggleAdminMenu()"]');
-        
-        if (adminMenu && !adminButton && !adminMenu.contains(event.target)) {
-            adminMenu.classList.add('hidden');
-        }
-    });
+    // Close notification popup
+    const closeNotificationPopup = document.getElementById('close-notification-popup');
+    if (closeNotificationPopup) {
+        closeNotificationPopup.addEventListener('click', function() {
+            document.getElementById('notification-popup').classList.add('hidden');
+        });
+    }
 
     // Members page functionality
     window.showAddMember = function() {
@@ -304,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // User dropdown functionality for other pages  
+    // Universal user dropdown functionality
     const userMenuBtn = document.getElementById('user-menu-btn');
     const userDropdown = document.getElementById('user-dropdown');
     
@@ -321,4 +346,69 @@ document.addEventListener('DOMContentLoaded', function() {
             userDropdown.classList.add('hidden');
         }
     });
+
+    // Advertisement page functionality
+    const createAdBtn = document.getElementById('create-ad-btn');
+    const adForm = document.getElementById('ad-form');
+    const closeAdFormBtn = document.getElementById('close-ad-form-btn');
+    const cancelAdFormBtn = document.getElementById('cancel-ad-form-btn');
+
+    if (createAdBtn && adForm) {
+        createAdBtn.addEventListener('click', function() {
+            adForm.classList.remove('hidden');
+        });
+    }
+
+    if (closeAdFormBtn && adForm) {
+        closeAdFormBtn.addEventListener('click', function() {
+            adForm.classList.add('hidden');
+        });
+    }
+
+    if (cancelAdFormBtn && adForm) {
+        cancelAdFormBtn.addEventListener('click', function() {
+            adForm.classList.add('hidden');
+        });
+    }
+
+    // Newsletter page functionality
+    const uploadNewsletterBtn = document.getElementById('upload-newsletter-btn');
+    const newsletterForm = document.getElementById('newsletter-form');
+    const closeNewsletterFormBtn = document.getElementById('close-newsletter-form-btn');
+    const cancelNewsletterFormBtn = document.getElementById('cancel-newsletter-form-btn');
+
+    if (uploadNewsletterBtn && newsletterForm) {
+        uploadNewsletterBtn.addEventListener('click', function() {
+            newsletterForm.classList.remove('hidden');
+        });
+    }
+
+    if (closeNewsletterFormBtn && newsletterForm) {
+        closeNewsletterFormBtn.addEventListener('click', function() {
+            newsletterForm.classList.add('hidden');
+        });
+    }
+
+    if (cancelNewsletterFormBtn && newsletterForm) {
+        cancelNewsletterFormBtn.addEventListener('click', function() {
+            newsletterForm.classList.add('hidden');
+        });
+    }
+
+    // Matrimony profile form functionality
+    const createProfileBtn = document.getElementById('create-profile-btn');
+    const profileForm = document.getElementById('profile-form');
+    const closeProfileFormBtn = document.getElementById('close-profile-form-btn');
+
+    if (createProfileBtn && profileForm) {
+        createProfileBtn.addEventListener('click', function() {
+            profileForm.classList.remove('hidden');
+        });
+    }
+
+    if (closeProfileFormBtn && profileForm) {
+        closeProfileFormBtn.addEventListener('click', function() {
+            profileForm.classList.add('hidden');
+        });
+    }
 });
